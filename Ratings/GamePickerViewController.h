@@ -1,13 +1,15 @@
-//
-//  GamePickerViewController.h
-//  Ratings
-//
-//  Created by Dave Green on 09/08/2014.
-//  Copyright (c) 2014 DeveloperDave. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
+
+@class GamePickerViewController;
+
+@protocol GamePickerViewControllerDelegate <NSObject>
+- (void)gamePickerViewController:(GamePickerViewController *)controller didSelectGame:(NSString *)game;
+@end
+
 @interface GamePickerViewController : UITableViewController
+
+@property (nonatomic, weak) id<GamePickerViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSString *game;
 
 @end

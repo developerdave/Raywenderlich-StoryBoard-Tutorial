@@ -1,13 +1,8 @@
-//
-//  PlayersViewController.h
-//  Ratings
-//
-//  Created by Dave Green on 08/08/2014.
-//  Copyright (c) 2014 DeveloperDave. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
+#import "PlayerDetailsViewController.h"
 
-@interface PlayersViewController : UIViewController
+@interface PlayersViewController : UITableViewController <PlayersDetailViewControllerDelegate>
+
+@property (nonatomic, strong) NSMutableArray *players;
 
 @end

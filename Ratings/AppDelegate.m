@@ -1,22 +1,45 @@
-//
-//  AppDelegate.m
-//  Ratings
-//
-//  Created by Dave Green on 08/08/2014.
-//  Copyright (c) 2014 DeveloperDave. All rights reserved.
-//
-
 #import "AppDelegate.h"
+#import "Player.h"
+#import "PlayersViewController.h"
 
 @interface AppDelegate ()
 
 @end
 
+
 @implementation AppDelegate
+{
+    NSMutableArray *_players;
+}
             
+#pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    _players = [NSMutableArray arrayWithCapacity:20];
+    
+    Player *player = [[Player alloc] init];
+    player.name = @"Bill Evans";
+    player.game = @"Tic-Tac-Toe";
+    player.rating = 4;
+    [_players addObject:player];
+    
+    player = [[Player alloc] init];
+    player.name = @"Oscar Peterson";
+    player.game = @"Spin the Bottle";
+    player.rating = 5;
+    [_players addObject:player];
+    
+    player = [[Player alloc] init];
+    player.name = @"Dave Brubeck";
+    player.game = @"Texas Hold’em Poker";
+    player.rating = 2;
+    [_players addObject:player];
+    
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UINavigationController *navigationController = [tabBarController viewControllers][0];
+    PlayersViewController *playersViewController = [navigationController viewControllers][0];
+    playersViewController.players = _players;
+    
     return YES;
 }
 
