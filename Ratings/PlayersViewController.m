@@ -21,6 +21,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UINavigationController *navigationController = segue.destinationViewController;
+    PlayerDetailsViewController *playerDetailsViewController = [navigationController viewControllers][0];
+    
+    if ([segue.identifier isEqualToString:@"AddPlayer"]) {
+        playerDetailsViewController.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"EditPlayer"]) {
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        playerDetailsViewController.player = (self.players)[path.row];
+        playerDetailsViewController.delegate = self;
+    }
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -56,12 +68,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"AddPlayer"]) {
-        UINavigationController *navigationController = segue.destinationViewController;
-        PlayerDetailsViewController *playerDetailsViewController = [navigationController viewControllers][0];
-        playerDetailsViewController.delegate = self;
-    }
+- (void)playerDetailsViewControllerDidEdit:(PlayerDetailsViewController *)controller didEditPlayer:(Player *)player {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.tableView reloadData];
 }
 
 - (UIImage *)imageForRating:(int)rating {

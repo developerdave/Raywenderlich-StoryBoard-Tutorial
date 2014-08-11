@@ -85,6 +85,7 @@
                                     <outlet property="gameLabel" destination="B0h-0j-0nS" id="faC-cz-uG2"/>
                                     <outlet property="nameLabel" destination="htk-Ei-OgJ" id="WfN-x2-WPv"/>
                                     <outlet property="ratingImageView" destination="6vA-Ag-wXh" id="bff-PT-Uk2"/>
+                                    <segue destination="fvq-uE-4Ed" kind="modal" identifier="EditPlayer" id="fqz-pg-Teh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -269,4 +270,7 @@
             <size key="landscapeSize" width="568" height="320"/>
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="fqz-pg-Teh"/>
+    </inferredMetricsTieBreakers>
 </document>

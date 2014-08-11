@@ -3,6 +3,8 @@
 
 @interface PlayerDetailsViewController ()
 
+- (void)mapPlayer:(Player *)player;
+
 @end
 
 @implementation PlayerDetailsViewController
@@ -28,7 +30,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.detailLabel.text = _game;
+    if (self.player) {
+        self.title = @"Edit Player";
+        self.nameTextField.text = self.player.name;
+        self.detailLabel.text = self.player.game;
+    } else {
+        self.detailLabel.text = _game;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,12 +59,15 @@
 }
 
 - (IBAction)done:(id)sender {
-    Player *player = [[Player alloc] init];
-    player.name = self.nameTextField.text;
-    player.game = _game;
-    player.rating = 1;
-    
-    [self.delegate playerDetailsViewControllerDidSave:self didAddPlayer:player];
+    if (self.player) {
+        [self mapPlayer:self.player];
+        [self.delegate playerDetailsViewControllerDidEdit:self didEditPlayer:self.player];
+    } else {
+        Player *player = [[Player alloc] init];
+        
+        [self mapPlayer:player];
+        [self.delegate playerDetailsViewControllerDidSave:self didAddPlayer:player];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -74,6 +85,14 @@
     self.detailLabel.text = _game;
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Helpers
+
+- (void)mapPlayer:(Player *)player {
+    player.name = self.nameTextField.text;
+    player.game = _game;
+    player.rating = 1;
 }
 
 
